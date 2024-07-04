@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <?php 
+
+        echo '<div class="container">';
+        
+
+        include "connectdb.php";
+        $names = ["armandoo","lurnandoo","federicaa","ziopero","ziomelo",
+        "asa","uusu","kkkk","ssndsnsd","isisd","usussusu","snusnu"];
+        for($i = 1; $i < 11; $i++){
+            $name = $names[$i];
+            $sql = "INSERT INTO $table (name, password) VALUES ('$name','$name')";
+            if($conn->query($sql)){
+                //echo "ho inserito ".$i;
+            }
+        }
+
+        $getstuff = "SELECT * FROM $table";
+        $result = $conn->query($getstuff);
+
+        if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            $value = $row['id'];
+            echo "<button class = 'button' onclick = 'dajeroma()' value = '$value'>" . $value. " " .$row["name"]. " " .$row["password"];
+        }
+    }
+    echo '</div>';
+    
+    ?>
+    <script src="animation.js"></script>
+</body>
+</html>
