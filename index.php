@@ -34,7 +34,8 @@
             {
                     echo '<div class="rowdata">';
                     $value = $row['id'];
-                    echo '<div class = "name">' .$row['name']  . '</div>';
+                    $name = $row['name'];
+                    echo "<input type = 'text' class = 'name' value = '$name'>"   . '</input>';
                     echo '<div class = "buttonsgroup">';
                         echo "<button class = 'markbutton' onclick = 'deletetask()' value = '$value'>"; echo"</button>";
                         echo "<button class = 'editbutton editsvg' onclick = 'edittask()' value = '$value'>"; echo "</button>";

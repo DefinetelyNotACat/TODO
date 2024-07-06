@@ -9,6 +9,10 @@ buttons.forEach(button => {
 editbuttons.forEach(button => {
     button.addEventListener("click",edittask)
 });
+
+names.forEach(name =>{
+    //name.disabled = true;
+})
 function deletetask()
 {
     let value = this.value-1
@@ -35,6 +39,11 @@ function edittask()
            
 
             names[value].contentEditable = "true"
+            names[value].disabled = false
+            names[value].focus();
+            names[value].selectionStart = names[value].value.length;
+            names[value].selectionEnd = names[value].value.length;           
+
             rows[value].classList.add("icanedit")
             mousePointer = document.createElement('span')
             mousePointer.classList.toggle("cursor")
