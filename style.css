@@ -6,10 +6,11 @@ html,body{
 }
 
 *{
-    font-family:  Helvetica, sans-serif
+    font-family:  Helvetica, sans-serif 
 }
 h1{
     text-align: center;
+    margin-bottom: 50px;
 }
 
 
@@ -32,11 +33,13 @@ h1{
     width: 30px;
     height: 15px;
     padding: 15px;
+    opacity: 0.9;
+
 }
 
 .markbutton:hover{
     cursor: pointer;
-    opacity: 0.8;
+    opacity: 1;
 
 }
 
@@ -45,7 +48,7 @@ h1{
     text-align: center;
     justify-content: space-around;
     align-items: center;
-    width: 50%;
+    width: 57%;
     height: 30%;
     outline: 1px solid black;
     padding: 10px;
@@ -56,9 +59,45 @@ h1{
 }
 
 .buttondone{
-    
     background-image: url(svg/check.svg);
     background-size: 30px 30px;
     background-repeat: no-repeat;
+    border: none;
+    opacity: 0.6;
+}
+
+
+.editbutton{
+    background-color: white;
+    padding: 15px 32px;
+    opacity: 0.6;
+}
+
+.editsvg{
+    background-image: url(svg/edit-icon.svg);
+    display: block;
+    margin: auto;
+    background-size: 64px 30px;
+    background-position:center ;
+    background-repeat: no-repeat;
+}
+.editbutton:hover{
+    opacity: 1;
+}
+
+.buttonsgroup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex: 0.3;
+}
+
+.buttonsgroup>*{
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 2px;
 
 }
