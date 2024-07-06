@@ -57,3 +57,8 @@ function hidecursor(value)
     rows[value].classList.remove("icanedit")
 }
 
+
+
+let niceinput = document.getElementById("niceinput")
+
+niceinput.focus()

@@ -47,6 +47,7 @@
     
     ?>
 
+<input type="text" id="niceinput">
 <div class="cursor"></div>
 <script src="animation.js"></script>
 </body>
