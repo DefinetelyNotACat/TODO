@@ -34,7 +34,7 @@
             {
                     echo '<div class="rowdata">';
                     $value = $row['id'];
-                    echo '<div class = "name">' .$row['name'] . "<br>" . '</div>';
+                    echo '<div class = "name">' .$row['name']  . '</div>';
                     echo '<div class = "buttonsgroup">';
                         echo "<button class = 'markbutton' onclick = 'deletetask()' value = '$value'>"; echo"</button>";
                         echo "<button class = 'editbutton editsvg' onclick = 'edittask()' value = '$value'>"; echo "</button>";
@@ -47,6 +47,7 @@
     
     ?>
 
+<div class="cursor"></div>
 <script src="animation.js"></script>
 </body>
 </html>
