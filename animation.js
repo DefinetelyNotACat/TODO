@@ -2,6 +2,9 @@ let buttons = document.querySelectorAll('.markbutton')
 let editbuttons = document.querySelectorAll('.editbutton')
 let names = document.querySelectorAll('.name')
 let rows = document.querySelectorAll('.rowdata')
+let buttonssize = buttons.length-1
+let maxvalue = buttons[buttonssize]
+console.log(maxvalue)
 let mousePointer
 buttons.forEach(button => {
     button.addEventListener("click",deletetask)
@@ -11,7 +14,7 @@ editbuttons.forEach(button => {
 });
 
 names.forEach(name =>{
-    //name.disabled = true;
+
 })
 function deletetask()
 {
@@ -68,6 +71,27 @@ function hidecursor(value)
 
 
 
-let niceinput = document.getElementById("niceinput")
+function removeAllTask()
+{
+    let rows = document.querySelectorAll('.rowdata')
+    if(rows.length != 0)
+    {
+        let str = "deletetable"
+        maxvalue = 0
+        let audio = new Audio('sounds/eraseall.wav')
+        audio.play()
+        rows.forEach(row => {
+            row.remove()
+        });
+        const xmlhttp = new XMLHttpRequest();
+        xmlhttp.onload = function() 
+        {
+            document.getElementById("daje").innerHTML = this.responseText
+        }
+        xmlhttp.open("POST", "elaborator.php");
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("request=deletetable");       
+          
+    }
+}
 
-niceinput.focus()
