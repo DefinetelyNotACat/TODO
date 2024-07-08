@@ -3,6 +3,7 @@ let editbuttons = document.querySelectorAll('.editbutton')
 let names = document.querySelectorAll('.name')
 let rows = document.querySelectorAll('.rowdata')
 let buttonssize = buttons.length-1
+let containerrow = document.querySelector('.containerrows')
 let maxvalue = buttons[buttonssize]
 console.log(maxvalue)
 let mousePointer
@@ -86,7 +87,6 @@ function removeAllTask()
         const xmlhttp = new XMLHttpRequest();
         xmlhttp.onload = function() 
         {
-            document.getElementById("daje").innerHTML = this.responseText
         }
         xmlhttp.open("POST", "elaborator.php");
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -95,3 +95,42 @@ function removeAllTask()
     }
 }
 
+
+function addTask()
+{
+    let maxvalue
+    let buttons = document.querySelectorAll('.markbutton')
+    if(buttons.length!==0)
+    {
+        console.log("sborra")    
+        let buttonssize = buttons.length-1
+        maxvalue = buttons[buttonssize].value
+        addRow(maxvalue)
+    }
+    else
+    {
+        maxvalue = 1
+        addRow(maxvalue)
+
+    }
+
+}
+
+
+function addRow(value)
+{
+    console.log(value)
+    let div = document.createElement('div')
+    div.classList.add("rowdata")
+    console.log(containerrow)
+    let input = document.createElement('input')
+    input.setAttribute("type", "text")
+    input.classList.add("name")
+    div.appendChild(input)
+    containerrow.appendChild(div)
+    let seconddiv = document.createElement('div')
+    seconddiv.classList.add("buttonsgroup")
+    div.appendChild(seconddiv)
+
+    let button
+}
