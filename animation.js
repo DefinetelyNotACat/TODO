@@ -5,6 +5,7 @@ let rows = document.querySelectorAll('.rowdata')
 let buttonssize = buttons.length-1
 let containerrow = document.querySelector('.containerrows')
 let maxvalue = buttons[buttonssize]
+let checkiffirst = false
 console.log(maxvalue)
 let mousePointer
 buttons.forEach(button => {
@@ -19,10 +20,18 @@ names.forEach(name =>{
 })
 function deletetask()
 {
+    let names = document.querySelectorAll(".name")
+    let buttons = document.querySelectorAll(".markbutton")
+
     let value = this.value-1
+    console.log(value)
+    console.log(names[value])
+   
     
         names[value].classList.toggle("done")
         buttons[value].classList.toggle("buttondone")
+    
+       
     
 
 
@@ -35,8 +44,11 @@ function deletetask()
 
 function edittask()
 {
-    //checka se ha preso il valore (serve per evitare conflitti) 
-    if(this.value) {
+    let names = document.querySelectorAll(".name")
+    let buttons = document.querySelectorAll(".markbutton")
+
+    if(this.value) 
+    {
         let value = this.value-1
         if(names[value].children.length == 0)
         {       
@@ -52,8 +64,7 @@ function edittask()
             mousePointer = document.createElement('span')
             mousePointer.classList.toggle("cursor")
             names[value].appendChild(mousePointer)
-            names[value].addEventListener("keydown",function()
-            {
+            names[value].addEventListener("keydown",function(){
                 hidecursor(value)
             })
    
@@ -77,7 +88,7 @@ function removeAllTask()
     let rows = document.querySelectorAll('.rowdata')
     if(rows.length != 0)
     {
-        let str = "deletetable"
+        //let str = "deletetable"
         maxvalue = 0
         let audio = new Audio('sounds/eraseall.wav')
         audio.play()
@@ -105,6 +116,7 @@ function addTask()
         console.log("sborra")    
         let buttonssize = buttons.length-1
         maxvalue = buttons[buttonssize].value
+        console.log("Il max è ",maxvalue)
         addRow(maxvalue)
     }
     else
@@ -119,7 +131,14 @@ function addTask()
 
 function addRow(value)
 {
-    console.log(value)
+    let buttons = document.querySelectorAll('.markbutton')
+    if(buttons.length==0){
+
+        value = 1
+    }   
+    else value = parseInt(value) + 1
+    console.log("m piac sto value " + value)
+
     let div = document.createElement('div')
     div.classList.add("rowdata")
     console.log(containerrow)
@@ -134,7 +153,10 @@ function addRow(value)
 
     let button = document.createElement('button')
     button.innerHTML = ""
+    button.value = value
     button.classList.add("markbutton")
+    button.addEventListener("click", deletetask);
+    button.addEventListener("click",deletetask)
     let secondbutton = document.createElement('button')
     secondbutton.innerHTML = ""
     secondbutton.classList.add("editbutton")
@@ -142,5 +164,5 @@ function addRow(value)
     
     seconddiv.appendChild(button)
     seconddiv.appendChild(secondbutton)
-
+    
 }
