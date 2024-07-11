@@ -132,5 +132,15 @@ function addRow(value)
     seconddiv.classList.add("buttonsgroup")
     div.appendChild(seconddiv)
 
-    let button
+    let button = document.createElement('button')
+    button.innerHTML = ""
+    button.classList.add("markbutton")
+    let secondbutton = document.createElement('button')
+    secondbutton.innerHTML = ""
+    secondbutton.classList.add("editbutton")
+    secondbutton.classList.add("editsvg")
+    
+    seconddiv.appendChild(button)
+    seconddiv.appendChild(secondbutton)
+
 }

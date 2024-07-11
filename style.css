@@ -61,8 +61,9 @@ h1{
     align-items: center;
     height: 15%;
     outline: 1px solid black;
-    padding: 10px;
+    padding: 7px;
     width: 100%;
+    flex: 1;
 }
 
 .done{
@@ -176,23 +177,22 @@ button{
 
 
   
-  #deletebutton svg path:hover {
-    fill: #ff0000 !important; 
-    opacity: 1;
-  }
-  #deletebutton svg path{
-    z-index: 999;
-  }
+
+ 
   #deletebutton:hover{
-    fill: red;
+    fill: red !important;
   }
 
   #deletebutton svg:hover {
     fill: #ff0000 !important;
-    opacity: 1;
+    
   }
-  #deletebutton svg path{
-    opacity: 0.8;
+  #deletebutton:hover svg:hover path:hover{
+    fill: red !important;
+  }
+
+  #deletebutton > svg:hover > path:hover{
+    background-color: red !important;
   }
 
   .lastbuttonscontainer{
