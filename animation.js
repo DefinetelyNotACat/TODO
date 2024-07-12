@@ -124,6 +124,7 @@ function addTask()
 {
     let maxvalue
     let buttons = document.querySelectorAll('.markbutton')
+    let names = document.querySelectorAll('.name')
     if(buttons.length!==0)
     {
         console.log("sborra")    
@@ -138,6 +139,7 @@ function addTask()
         addRow(maxvalue)
 
     }
+       
 
 }
 
@@ -158,6 +160,7 @@ function addRow(value)
     let input = document.createElement('input')
     input.setAttribute("type", "text")
     input.classList.add("name")
+    
     div.appendChild(input)
     containerrow.appendChild(div)
     let seconddiv = document.createElement('div')
@@ -177,7 +180,9 @@ function addRow(value)
     secondbutton.value = value
     seconddiv.appendChild(button)
     seconddiv.appendChild(secondbutton)
-    
+    input.focus()
+   
+
 }
 
 
