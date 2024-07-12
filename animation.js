@@ -6,8 +6,13 @@ let buttonssize = buttons.length-1
 let containerrow = document.querySelector('.containerrows')
 let maxvalue = buttons[buttonssize]
 let checkiffirst = false
+let audiobutton = document.getElementById("audio")
+let audioon = document.getElementById('audioon')
+let audiooff = document.getElementById('audiooff')
+let touches = 0
 console.log(maxvalue)
 let mousePointer
+let sounds = true
 buttons.forEach(button => {
     button.addEventListener("click",deletetask)
 });
@@ -15,9 +20,7 @@ editbuttons.forEach(button => {
     button.addEventListener("click",edittask)
 });
 
-names.forEach(name =>{
 
-})
 function deletetask()
 {
     let names = document.querySelectorAll(".name")
@@ -36,8 +39,11 @@ function deletetask()
 
 
     if(buttons[value].classList.contains("buttondone")){
-        let audio = new Audio('sounds/deleted.wav')
-        audio.play()
+        if(sounds)
+        {
+            let audio = new Audio('sounds/deleted.wav')
+            audio.play()
+        }
     }
    
 }
@@ -46,12 +52,14 @@ function edittask()
 {
     let names = document.querySelectorAll(".name")
     let buttons = document.querySelectorAll(".markbutton")
+    let rows = document.querySelectorAll('.rowdata')
 
-    if(this.value) 
+    console.log("tony tony tooonyyyyyy")
+
+    if(this.value)
     {
         let value = this.value-1
-        if(names[value].children.length == 0)
-        {       
+           
            
 
             names[value].contentEditable = "true"
@@ -64,18 +72,20 @@ function edittask()
             mousePointer = document.createElement('span')
             mousePointer.classList.toggle("cursor")
             names[value].appendChild(mousePointer)
-            names[value].addEventListener("keydown",function(){
+            names[value].addEventListener("keydown",function()
+            {
                 hidecursor(value)
             })
    
-            
        
-        }
+       
+      
     }
 }
 
 function hidecursor(value)
 {
+    let rows = document.querySelectorAll('.rowdata')
     console.log(value)
     mousePointer.remove()
     rows[value].classList.remove("icanedit")
@@ -90,8 +100,11 @@ function removeAllTask()
     {
         //let str = "deletetable"
         maxvalue = 0
-        let audio = new Audio('sounds/eraseall.wav')
-        audio.play()
+        if(sounds)
+        {
+            let audio = new Audio('sounds/eraseall.wav')
+            audio.play()
+        }
         rows.forEach(row => {
             row.remove()
         });
@@ -156,13 +169,35 @@ function addRow(value)
     button.value = value
     button.classList.add("markbutton")
     button.addEventListener("click", deletetask);
-    button.addEventListener("click",deletetask)
     let secondbutton = document.createElement('button')
     secondbutton.innerHTML = ""
     secondbutton.classList.add("editbutton")
     secondbutton.classList.add("editsvg")
-    
+    secondbutton.addEventListener("click", edittask);
+    secondbutton.value = value
     seconddiv.appendChild(button)
     seconddiv.appendChild(secondbutton)
     
+}
+
+
+function changeaudio()
+{
+    if(touches%2==0) console.log(touches)
+    touches+=1
+
+    if(touches % 2 == 0)
+        {
+        audioon.classList.remove("hidden")
+        audiooff.classList.add("hidden")
+        sounds = true
+        console.log("cummy")
+    }
+    else{
+        audiooff.classList.remove("hidden")
+        audioon.classList.add("hidden")
+        sounds = false
+    }
+ 
+
 }
