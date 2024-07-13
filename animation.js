@@ -10,6 +10,8 @@ let audiobutton = document.getElementById("audio")
 let audioon = document.getElementById('audioon')
 let audiooff = document.getElementById('audiooff')
 let touches = 0
+let colorrow = false
+let precedentselected
 console.log(maxvalue)
 let mousePointer
 let sounds = true
@@ -60,22 +62,41 @@ function edittask()
     {
         let value = this.value-1
            
-           
 
-            names[value].contentEditable = "true"
-            names[value].disabled = false
-            names[value].focus();
-            names[value].selectionStart = names[value].value.length;
-            names[value].selectionEnd = names[value].value.length;           
-
-            rows[value].classList.add("icanedit")
-            mousePointer = document.createElement('span')
-            mousePointer.classList.toggle("cursor")
-            names[value].appendChild(mousePointer)
-            names[value].addEventListener("keydown",function()
+            if(colorrow == false)
             {
-                hidecursor(value)
-            })
+                colorrow = true
+                names[value].contentEditable = "true"
+                names[value].disabled = false
+                names[value].focus();
+                names[value].selectionStart = names[value].value.length;
+                names[value].selectionEnd = names[value].value.length;           
+
+                rows[value].classList.add("icanedit")
+                mousePointer = document.createElement('span')
+                mousePointer.classList.toggle("cursor")
+                names[value].appendChild(mousePointer)
+                names[value].addEventListener("keydown",function()
+                {
+                    colorrow = false
+                    hidecursor(value)
+                })
+            }
+            else
+            {
+                let num = -1
+                rows.forEach(row => {
+                    num++
+                    if(row.classList.contains("icanedit")){
+                        console.log("sbadum")
+                        console.log(num)
+                        console.log(names[num])
+                        names[num].focus()
+                        
+                    }
+                });
+            }
+ 
    
        
        
@@ -89,6 +110,7 @@ function hidecursor(value)
     console.log(value)
     mousePointer.remove()
     rows[value].classList.remove("icanedit")
+
 }
 
 
