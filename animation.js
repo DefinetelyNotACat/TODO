@@ -12,9 +12,9 @@ let audiooff = document.getElementById('audiooff')
 let touches = 0
 let colorrow = false
 let precedentselected
-console.log(maxvalue)
 let mousePointer
 let sounds = true
+let removebuttons = document.querySelectorAll('.removebutton')
 buttons.forEach(button => {
     button.addEventListener("click",deletetask)
 });
@@ -22,6 +22,11 @@ editbuttons.forEach(button => {
     button.addEventListener("click",edittask)
 });
 
+removebuttons.forEach(button => {
+    console.log(button)
+    button.addEventListener("click",removetask)
+
+});
 
 function deletetask()
 {
@@ -203,7 +208,16 @@ function addRow(value)
     seconddiv.appendChild(button)
     seconddiv.appendChild(secondbutton)
     input.focus()
-   
+
+
+    let thirdbutton = document.createElement('button')
+    thirdbutton.innerHTML = ""
+    thirdbutton.value = value
+    thirdbutton.classList.add("removebutton")
+    thirdbutton.addEventListener("click", removetask);  
+    seconddiv.appendChild(thirdbutton)
+
+
 
 }
 
@@ -226,5 +240,21 @@ function changeaudio()
         sounds = false
     }
  
+
+}
+
+
+function removetask()
+{
+    let names = document.querySelectorAll(".name")
+    let buttons = document.querySelectorAll(".markbutton")
+    let rows = document.querySelectorAll('.rowdata')
+    console.log(rows.length + " grandezza righe")
+    let value = this.value-1
+    console.log(value + "valore scelto")
+    console.log(rows[value-1])
+    if(value == rows.length) rows[value-1].remove();
+    else rows[value].remove()
+   
 
 }

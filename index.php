@@ -53,6 +53,7 @@
                     echo '<div class = "buttonsgroup">';
                         echo "<button class = 'markbutton' onclick = 'deletetask()' value = '$value'>"; echo"</button>";
                         echo "<button class = 'editbutton editsvg' onclick = 'edittask()' value = '$value'>"; echo "</button>";
+                        echo "<button class = 'removebutton' onclick = 'removetask()' value = '$value'>"; echo "</button>";
                     echo '</div>';
                 
                 echo '</div>';

@@ -44,7 +44,7 @@ h1{
     width: 30px;
     height: 15px;
     padding: 15px;
-    opacity: 1;
+    opacity: 0.6;
     background-color: white;
 
 }
@@ -102,7 +102,7 @@ h1{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
 }
 
 .buttonsgroup>*{
@@ -243,3 +243,24 @@ button:hover{
 .hidden{
     display: none;
 }
+
+.removebutton{
+    width: 30px;
+    height: 30px;
+    padding: 15px;
+    background-color: white;
+    background-image: url(svg/trashcan.svg);
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position:center;
+    border: none;
+    opacity: 0.6;
+}
+
+.removebutton:hover{
+    opacity: 1;
+   
+
+}
+
+
