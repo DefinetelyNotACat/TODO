@@ -15,28 +15,44 @@ let precedentselected
 let mousePointer
 let sounds = true
 let removebuttons = document.querySelectorAll('.removebutton')
-buttons.forEach(button => {
-    button.addEventListener("click",deletetask)
-});
-editbuttons.forEach(button => {
-    button.addEventListener("click",edittask)
-});
 
-removebuttons.forEach(button => {
-    console.log(button)
-    button.addEventListener("click",removetask)
 
-});
+
+    buttons.forEach(button => {
+        button.addEventListener("click",deletetask)
+    });
+    editbuttons.forEach(button => {
+        button.addEventListener("click",edittask)
+    });
+
+    removebuttons.forEach(button => {
+        console.log(button)
+        button.addEventListener("click",removetask)
+
+    });
+
+window.onload = function checkphone()
+{
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        //console.log(navigator)
+        //console.log("mobile")
+        alert("fuori dai coglioni")
+    }
+    else console.log(navigator.userAgent)
+}
+
 
 function deletetask()
 {
     let names = document.querySelectorAll(".name")
     let buttons = document.querySelectorAll(".markbutton")
-
     let value = this.value-1
     console.log(value)
+    console.log(names.length)
     console.log(names[value])
-   
+    if(value==names.length){
+        value -= 1
+    }
     
         names[value].classList.toggle("done")
         buttons[value].classList.toggle("buttondone")
@@ -257,4 +273,23 @@ function removetask()
     else rows[value].remove()
    
 
+}
+
+
+
+function addDB(value)
+{
+    let names = document.querySelectorAll(".name")
+    let element = names[value]
+    console.log(element)
+
+    let str = "addelement"
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() 
+    {
+        console.log(this.responseText)
+    }
+    xmlhttp.open("POST", "elaborator.php");
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("request="+str+"&value="+value);       
 }

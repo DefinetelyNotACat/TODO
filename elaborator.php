@@ -12,6 +12,8 @@ switch($request)
         {
             echo "errore di connessione";
         }
+    case "addelement":
+        $sql = "INSERT INTO $table (name, value) VALUES ('$name', '$value')";
 }
 
 ?>

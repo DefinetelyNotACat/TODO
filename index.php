@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body>
+<body onload="checkphone()">
     <h1>Todo</h1>
     <div id="audiocontainers">
         <button onclick="changeaudio()" id="audio" class="audioon">
@@ -24,7 +24,9 @@
     <?php 
 
         include "connectdb.php";
-        $names = ["armandoo","lurnandoo","federicaa","ziopero","ziomelo",
+       /* ==================== INSERT VALUES =================
+       
+       $names = ["armandoo","lurnandoo","federicaa","ziopero","ziomelo",
         "asa","uusu","kkkk","ssndsnsd","isisd","usussusu","snusnu"];
         
         for($i = 1; $i < 10; $i++)
@@ -35,7 +37,7 @@
                 //echo "ho inserito ".$i;
             }
         }
-
+    ---------------------------------------------------------------*/
         $getstuff = "SELECT * FROM $table";
         $result = $conn->query($getstuff);
         echo '<div class="container">';
@@ -59,18 +61,17 @@
                 echo '</div>';
             }
         }
-    echo '</div>';
+        echo '</div>';
     echo '<div class = "lastbuttonscontainer">';
     echo '<button onclick="removeAllTask()" id="deletebutton"> 
-    <svg width="60px" height="60px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="#000000" d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32zm192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32z"/></svg>
-    
-    </button>';
+    <svg width="60px" height="60px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="#000000" d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32zm192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32z"/></svg> </button>';
 
-        echo '<button onclick="addTask()" id="plusbutton">  
-        <svg fill="#228BE6" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="60px" height="60px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"/></svg>
+        echo 
+        '<button onclick="addTask()" id="plusbutton">  
+            <svg fill="#228BE6" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="60px" height="60px"><path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"/></svg>
         </button>';
 
-    echo '</div>';
+        echo '</div>';
     echo '</div>';
     
     ?>
