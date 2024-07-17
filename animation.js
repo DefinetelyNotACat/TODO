@@ -16,7 +16,8 @@ let mousePointer
 let sounds = true
 let removebuttons = document.querySelectorAll('.removebutton')
 
-
+function addattributes(buttons,editbuttons,removebuttons)
+{
 
     buttons.forEach(button => {
         button.addEventListener("click",deletetask)
@@ -30,7 +31,20 @@ let removebuttons = document.querySelectorAll('.removebutton')
         button.addEventListener("click",removetask)
 
     });
+}
 
+buttons.forEach(button => {
+    button.addEventListener("click",deletetask)
+});
+editbuttons.forEach(button => {
+    button.addEventListener("click",edittask)
+});
+
+removebuttons.forEach(button => {
+    console.log(button)
+    button.addEventListener("click",removetask)
+
+});
 window.onload = function checkphone()
 {
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -46,13 +60,16 @@ function deletetask()
 {
     let names = document.querySelectorAll(".name")
     let buttons = document.querySelectorAll(".markbutton")
-    let value = this.value-1
+    let size = buttons.length
+    for(let i = 0; i < size; i++){
+        buttons[i].value = i
+    }
+    let value = this.value
     console.log(value)
     console.log(names.length)
+    if(value==names.length) value-=1
     console.log(names[value])
-    if(value==names.length){
-        value -= 1
-    }
+   
     
         names[value].classList.toggle("done")
         buttons[value].classList.toggle("buttondone")
