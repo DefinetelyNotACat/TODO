@@ -58,11 +58,17 @@ window.onload = function checkphone()
 
 function deletetask()
 {
-    let names = document.querySelectorAll(".name")
-    let buttons = document.querySelectorAll(".markbutton")
+    let buttons = document.querySelectorAll('.markbutton')
+    let editbuttons = document.querySelectorAll('.editbutton')
+    let names = document.querySelectorAll('.name')
+
     let size = buttons.length
+    console.log(buttons.length)
     for(let i = 0; i < size; i++){
-        buttons[i].value = i
+        buttons[i].value = i+1
+        editbuttons[i].value = i+1
+        console.log(buttons.length)
+
     }
     let value = this.value
     console.log(value)
@@ -250,6 +256,11 @@ function addRow(value)
     thirdbutton.addEventListener("click", removetask);  
     seconddiv.appendChild(thirdbutton)
 
+    let size = buttons.length
+
+    for(let i = 0; i < size; i++){
+        console.log(buttons[i])
+    }
 
 
 }
@@ -281,6 +292,8 @@ function removetask()
 {
     let names = document.querySelectorAll(".name")
     let buttons = document.querySelectorAll(".markbutton")
+    let editbuttons = document.querySelectorAll('.editbutton')
+
     let rows = document.querySelectorAll('.rowdata')
     console.log(rows.length + " grandezza righe")
     let value = this.value-1
@@ -289,6 +302,10 @@ function removetask()
     if(value == rows.length) rows[value-1].remove();
     else rows[value].remove()
    
+    for(let i = 1; i < buttons.length; i++){
+        buttons[i].value = i
+        editbuttons[i].value = i
+    }
 
 }
 
