@@ -70,7 +70,7 @@ function deletetask()
         console.log(buttons.length)
 
     }
-    let value = this.value
+    let value = this.value-1
     console.log(value)
     console.log(names.length)
     if(value==names.length) value-=1
