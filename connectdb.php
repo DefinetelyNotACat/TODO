@@ -20,7 +20,7 @@ $table = "DATA";
 $tablesql = "CREATE TABLE IF NOT EXISTS $table(
     id int auto_increment,
     name varchar(255),
-    password varchar(255),
+    done boolean,
     primary key (id)
     )";
 if($conn->query($tablesql)){
@@ -36,7 +36,7 @@ $check = "SELECT * FROM $table";
 if($result = $conn->query($check)){
   $row_cnt = $result->num_rows;
   if($row_cnt == 0){
-    $insert = "INSERT INTO $table (name, password) VALUES ('segui paky','<>')";
+    $insert = "INSERT INTO $table (name) VALUES ('segui paky')";
     $conn->query($insert);
   }
 

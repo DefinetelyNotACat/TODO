@@ -13,7 +13,19 @@ switch($request)
             echo "errore di connessione";
         }
     case "addelement":
-        $sql = "INSERT INTO $table (name, value) VALUES ('$name', '$value')";
+        $sql = "INSERT INTO $table (name) VALUES ('$name')";
+    case "createtable":
+        $tablesql = "CREATE TABLE IF NOT EXISTS $table(
+            id int auto_increment,
+            name varchar(255),
+            done boolean,
+            primary key (id)
+            )";
+        if(!$conn->query($tablesql)){
+            echo "errore";
+        }
+    
+
 }
 
 ?>

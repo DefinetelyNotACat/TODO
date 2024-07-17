@@ -16,22 +16,9 @@ let mousePointer
 let sounds = true
 let removebuttons = document.querySelectorAll('.removebutton')
 
-function addattributes(buttons,editbuttons,removebuttons)
-{
 
-    buttons.forEach(button => {
-        button.addEventListener("click",deletetask)
-    });
-    editbuttons.forEach(button => {
-        button.addEventListener("click",edittask)
-    });
 
-    removebuttons.forEach(button => {
-        console.log(button)
-        button.addEventListener("click",removetask)
 
-    });
-}
 
 buttons.forEach(button => {
     button.addEventListener("click",deletetask)
@@ -45,6 +32,28 @@ removebuttons.forEach(button => {
     button.addEventListener("click",removetask)
 
 });
+names.forEach(name => {
+    name.addEventListener("keyup", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          addTask()
+        }
+        else if(event.key === "ArrowUp"){
+            console.log("up")
+        }
+        else if(event.key === "ArrowDown"){
+            console.log("down")
+        }
+        else{
+            console.log(name.value)
+            console.log(this)
+        }
+      });
+});
+
 window.onload = function checkphone()
 {
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -203,6 +212,7 @@ function addTask()
     {
         maxvalue = 1
         addRow(maxvalue)
+        createDB(maxvalue)
 
     }
        
@@ -226,7 +236,24 @@ function addRow(value)
     let input = document.createElement('input')
     input.setAttribute("type", "text")
     input.classList.add("name")
-    
+    input.addEventListener("keyup", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          addTask()
+        }
+        else if(event.key === "ArrowUp"){
+            console.log("up")
+        }
+        else if(event.key === "ArrowDown"){
+            console.log("down")
+        }
+        else{
+
+        }
+      });
     div.appendChild(input)
     containerrow.appendChild(div)
     let seconddiv = document.createElement('div')
@@ -326,4 +353,18 @@ function addDB(value)
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("request="+str+"&value="+value);       
+}
+
+
+function createDB(value)
+{
+    let str = "createtable"
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() 
+    {
+        console.log(this.responseText)
+    }
+    xmlhttp.open("POST", "elaborator.php");
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("request="+str);  
 }
