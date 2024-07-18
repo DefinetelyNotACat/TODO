@@ -13,7 +13,12 @@ switch($request)
             echo "errore di connessione";
         }
     case "addelement":
+        //echo "A PUTTAN E NONNT";
         $sql = "INSERT INTO $table (name) VALUES ('$name')";
+        if(!$conn->query($sql)){
+            echo "errore inserimento dati";
+        }
+
     case "createtable":
         $tablesql = "CREATE TABLE IF NOT EXISTS $table(
             id int auto_increment,
@@ -24,6 +29,16 @@ switch($request)
         if(!$conn->query($tablesql)){
             echo "errore";
         }
+    case "edittable":
+        $value = $_POST['value'];
+        $name = $_POST['content'];
+        echo "A PUTTAN E " .$value;
+        //usa update e set where value = value
+        $sql = "UPDATE $table SET name = '$name' 
+        WHERE id = '$value'";
+        if(!$conn->query($sql)){
+            echo "errore update tabella";
+        } 
     
 
 }

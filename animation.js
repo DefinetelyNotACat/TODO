@@ -48,15 +48,16 @@ names.forEach(name => {
             console.log("down")
         }
         else{
-            console.log(name.value)
-            console.log(this)
+            let numberofinput = name.getAttribute('number')
+            let content = name.value
+            updateDB(numberofinput,content)
         }
       });
 });
 
 window.onload = function checkphone()
 {
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         //console.log(navigator)
         //console.log("mobile")
         alert("fuori dai coglioni")
@@ -76,6 +77,7 @@ function deletetask()
     for(let i = 0; i < size; i++){
         buttons[i].value = i+1
         editbuttons[i].value = i+1
+        names[i].setAttribute('number',i+1)
         console.log(buttons.length)
 
     }
@@ -85,7 +87,7 @@ function deletetask()
     if(value==names.length) value-=1
     console.log(names[value])
    
-    
+
         names[value].classList.toggle("done")
         buttons[value].classList.toggle("buttondone")
     
@@ -207,6 +209,7 @@ function addTask()
         maxvalue = buttons[buttonssize].value
         console.log("Il max è ",maxvalue)
         addRow(maxvalue)
+        addDB(maxvalue)
     }
     else
     {
@@ -215,6 +218,8 @@ function addTask()
         createDB(maxvalue)
 
     }
+
+   
        
 
 }
@@ -235,6 +240,7 @@ function addRow(value)
     console.log(containerrow)
     let input = document.createElement('input')
     input.setAttribute("type", "text")
+    input.setAttribute('number',value)
     input.classList.add("name")
     input.addEventListener("keyup", function(event) {
         // If the user presses the "Enter" key on the keyboard
@@ -285,9 +291,7 @@ function addRow(value)
 
     let size = buttons.length
 
-    for(let i = 0; i < size; i++){
-        console.log(buttons[i])
-    }
+
 
 
 }
@@ -320,7 +324,6 @@ function removetask()
     let names = document.querySelectorAll(".name")
     let buttons = document.querySelectorAll(".markbutton")
     let editbuttons = document.querySelectorAll('.editbutton')
-
     let rows = document.querySelectorAll('.rowdata')
     console.log(rows.length + " grandezza righe")
     let value = this.value-1
@@ -332,6 +335,7 @@ function removetask()
     for(let i = 1; i < buttons.length; i++){
         buttons[i].value = i
         editbuttons[i].value = i
+        names[i].setAttribute('number',i)
     }
 
 }
@@ -367,4 +371,17 @@ function createDB(value)
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("request="+str);  
+}
+
+function updateDB(value,content)
+{
+    let str = "edittable"
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() 
+    {
+        console.log(this.responseText)
+    }
+    xmlhttp.open("POST", "elaborator.php");
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("request="+str+"&value="+value+"&content="+content);  
 }
