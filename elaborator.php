@@ -14,9 +14,10 @@ switch($request)
         }
     break;
     case "addelement":
-       
-        //echo "A PUTTAN E NONNT";
-        $sql = "INSERT INTO $table (name) VALUES ('')";
+        $number = $_POST['value'];
+        $number+=1;
+        echo $number. "VATTENEE";
+        $sql = "INSERT INTO $table (name,number) VALUES ('','$number')";
         if(!$conn->query($sql)){
             echo "errore inserimento dati";
         }
@@ -26,6 +27,7 @@ switch($request)
         $tablesql = "CREATE TABLE IF NOT EXISTS $table(
             id int auto_increment,
             name varchar(255),
+            number int,
             done boolean,
             primary key (id)
             )";
@@ -39,7 +41,7 @@ switch($request)
         //echo "A PUTTAN E " .$value;
         //usa update e set where value = value
         $sql = "UPDATE $table SET name = '$name' 
-        WHERE id = '$value'";
+        WHERE number = '$value'";
         if(!$conn->query($sql)){
             echo "errore update tabella";
         } 
@@ -50,7 +52,7 @@ switch($request)
         $value = $_POST['value'];
         echo "CANCELLAMENTO " .$value;
         //usa update e set where value = value
-        $sql = "DELETE FROM $table WHERE id = '$value'";
+        $sql = "DELETE FROM $table WHERE number = '$value'";
         if(!$conn->query($sql)){
             echo "errore cancellamento elemento tabella";
         } 

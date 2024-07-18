@@ -37,7 +37,7 @@ $check = "SELECT * FROM $table";
 if($result = $conn->query($check)){
   $row_cnt = $result->num_rows;
   if($row_cnt == 0){
-    $insert = "INSERT INTO $table (name) VALUES ('segui paky')";
+    $insert = "INSERT INTO $table (name,number) VALUES ('segui paky',1)";
     $conn->query($insert);
   }
 
