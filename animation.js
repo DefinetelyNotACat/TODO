@@ -51,6 +51,8 @@ names.forEach(name => {
             let numberofinput = name.getAttribute('number')
             let content = name.value
             updateDB(numberofinput,content)
+            console.log(numberofinput)
+            console.log(content)
         }
       });
 });
@@ -219,7 +221,6 @@ function addTask()
 
     }
 
-   
        
 
 }
@@ -257,7 +258,13 @@ function addRow(value)
             console.log("down")
         }
         else{
-
+         
+                let numberofinput = input.getAttribute('number')
+                let content = input.value
+                updateDB(numberofinput,content)
+                console.log(numberofinput)
+                console.log(content)
+          
         }
       });
     div.appendChild(input)
@@ -338,6 +345,7 @@ function removetask()
         names[i].setAttribute('number',i)
     }
 
+    deletefromDB(value)
 }
 
 
@@ -353,6 +361,7 @@ function addDB(value)
     xmlhttp.onload = function() 
     {
         console.log(this.responseText)
+        //updateDB(element,value)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -384,4 +393,19 @@ function updateDB(value,content)
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("request="+str+"&value="+value+"&content="+content);  
+}
+
+
+function deletefromDB(value)
+{
+    let dbvalue = value+1
+    let str = "deletefromtable"
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() 
+    {
+        console.log(this.responseText)
+    }
+    xmlhttp.open("POST", "elaborator.php");
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("request="+str+"&value="+dbvalue);  
 }

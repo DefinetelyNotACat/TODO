@@ -21,6 +21,7 @@ $tablesql = "CREATE TABLE IF NOT EXISTS $table(
     id int auto_increment,
     name varchar(255),
     done boolean,
+    number int,
     primary key (id)
     )";
 if($conn->query($tablesql)){
