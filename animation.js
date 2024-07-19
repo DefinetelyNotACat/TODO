@@ -78,12 +78,14 @@ function deletetask()
     let buttons = document.querySelectorAll('.markbutton')
     let editbuttons = document.querySelectorAll('.editbutton')
     let names = document.querySelectorAll('.name')
+    let removebuttons = document.querySelectorAll('.removebutton')
 
     let size = buttons.length
     console.log(buttons.length)
     for(let i = 0; i < buttons.length; i++){
         buttons[i].value = i+1
         editbuttons[i].value = i+1
+        removebuttons[i].value = i+1
         names[i].setAttribute('number',i+1)
         console.log(buttons.length)
 
@@ -232,7 +234,8 @@ function addTask()
 function addRow(value)
 {
     let buttons = document.querySelectorAll('.markbutton')
-    if(buttons.length==0){
+    if(buttons.length==0)
+    {
 
         value = 1
     }   
@@ -307,12 +310,18 @@ function addRow(value)
     //try
 
     let names = document.querySelectorAll('.name')
-    for(let i = 0; i < names.length; i++){
+    let nicebuttons =  document.querySelectorAll('.markbutton')
+    let niceeditbuttons = document.querySelectorAll('.editbutton')
+    let removebuttons = document.querySelectorAll('.removebutton')
+
+    for(let i = 0; i < names.length; i++)
+    {
         console.log("GRANDE QUANTO ",names.length)
-            buttons[i].value = i+1
-            editbuttons[i].value = i+1
-            names[i].setAttribute('number',i+1)
-        
+        nicebuttons[i].value = i+1
+        niceeditbuttons[i].value = i+1
+        removebuttons[i].value = i+1
+        names[i].setAttribute('number',i+1)
+
     }
 
 
@@ -345,6 +354,7 @@ function removetask()
 {
     let buttons = document.querySelectorAll(".markbutton")
     let editbuttons = document.querySelectorAll('.editbutton')
+    let removebuttons = document.querySelectorAll('.removebutton')
     let rows = document.querySelectorAll('.rowdata')
     console.log(rows.length + " grandezza righe")
     let value = this.value-1
@@ -353,16 +363,25 @@ function removetask()
         //!FIX ERROR HERE 
         else rows[value].remove()
     */
-   rows[value-1].remove()
+   console.log(value)
+   console.log(rows[value])
+
 
     let names = document.querySelectorAll(".name")
+    console.log(value, "HO RIMOSSO")
+    console.log(names[value])
 
-    for(let i = 0; i < buttons.length; i++){
+    for(let i = 0; i < names.length; i++)
+    {
+        let number = i
         buttons[i].value = i+1
         editbuttons[i].value = i+1
+        removebuttons[i].value = i+1
         names[i].setAttribute('number',i+1)
+        orderDB(number,names[i].value)
         console.log(names[i])
     }
+    rows[value].remove()
 
     deletefromDB(value)
 }
@@ -371,9 +390,12 @@ function removetask()
 
 function addDB(value)
 {
+    value+=1
+    console.log("quanto vali stronzo ")
+    console.log("ROSAAAAA",value)
     let names = document.querySelectorAll(".name")
     let element = names[value]
-    console.log(element)
+    console.log(element, "adddb")
 
     let str = "addelement"
     const xmlhttp = new XMLHttpRequest();
@@ -417,7 +439,7 @@ function updateDB(value,content)
 
 function deletefromDB(value)
 {
-    let dbvalue = value+1
+    value+=1
     let str = "deletefromtable"
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
@@ -426,9 +448,23 @@ function deletefromDB(value)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("request="+str+"&value="+dbvalue);  
+    xmlhttp.send("request="+str+"&value="+value);  
 }
 
+
+function orderDB(value,content)
+{
+    value+=1
+    let str = "ordertable"
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() 
+    {
+        console.log(this.responseText)
+    }
+    xmlhttp.open("POST", "elaborator.php");
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("request="+str+"&value="+value+"&content="+content);  
+}
 
 function move(command,value)
 {
@@ -444,3 +480,4 @@ function move(command,value)
         selected.focus()
     }
 }
+

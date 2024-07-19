@@ -1,7 +1,19 @@
 <?php 
 
 include "connectdb.php";
+$findmax = "SELECT MAX(number) AS NUMBERONE FROM $table";
+echo $findmax;
+if(!$result = $conn->query($findmax)){
+    echo "errorerone";
+}
+else{
+    while($row = $result->fetch_assoc()) 
+    {
+        $maxvalue = $row['NUMBERONE'];
+    }
+}
 
+echo "IL VALORONE VALEEEE " .$maxvalue;
 $request = $_POST['request'];
 
 switch($request)
@@ -14,13 +26,12 @@ switch($request)
         }
     break;
     case "addelement":
-        $number = $_POST['value'];
-        $number+=1;
-        echo $number. "VATTENEE";
-        $sql = "INSERT INTO $table (name,number) VALUES ('','$number')";
+        $sql = "INSERT INTO $table (name) VALUES ('aaaa')";
         if(!$conn->query($sql)){
-            echo "errore inserimento dati";
+            echo "error";
         }
+       
+       
     break;
 
     case "createtable":
@@ -38,26 +49,52 @@ switch($request)
     case "edittable":
         $value = $_POST['value'];
         $name = $_POST['content'];
+        $oldname = substr($name,1);
         //echo "A PUTTAN E " .$value;
         //usa update e set where value = value
         $sql = "UPDATE $table SET name = '$name' 
-        WHERE number = '$value'";
+        WHERE name = '$oldname'";
         if(!$conn->query($sql)){
             echo "errore update tabella";
         } 
         else echo $value . $name;
 
         break;
+
     case "deletefromtable":
         $value = $_POST['value'];
-        echo "CANCELLAMENTO " .$value;
-        //usa update e set where value = value
         $sql = "DELETE FROM $table WHERE number = '$value'";
         if(!$conn->query($sql)){
-            echo "errore cancellamento elemento tabella";
+            echo "errore delete";
         }
-        else echo "HO CANCELLATO IL VALORE ".$value; 
-    break;
+ 
 }
-
+/*/*case "ordertable":
+        // Find missing sequence numbers
+        $missingNumbersQuery = "
+            SELECT n.number + 1 AS missingNumber
+            FROM $table n
+            LEFT JOIN $table n1 ON n.number + 1 = n1.number
+            WHERE n1.number IS NULL
+            AND n.number < (SELECT MAX(number) FROM $table)
+            ORDER BY missingNumber
+        ";
+        
+        if (!$missingResult = $conn->query($missingNumbersQuery)) {
+            echo "Error finding missing numbers";
+        } else {
+            while ($missingRow = $missingResult->fetch_assoc()) {
+                $missingNumber = $missingRow['missingNumber'];
+                $insertSql = "INSERT INTO $table (name, number) VALUES ('', $missingNumber)";
+                if (!$conn->query($insertSql)) {
+                    echo "Error inserting missing number: " . $missingNumber;
+                } else {
+                    echo "Inserted missing number: " . $missingNumber;
+                }
+            }
+        }
+        break;
+        */
+        
 ?>
+
