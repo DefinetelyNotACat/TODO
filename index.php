@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body onload="checkphone()">
+<body>
     <h1>Todo</h1>
     <div id="audiocontainers">
         <button onclick="changeaudio()" id="audio" class="audioon">

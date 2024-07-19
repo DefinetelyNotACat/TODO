@@ -55,7 +55,8 @@ switch($request)
         $sql = "DELETE FROM $table WHERE number = '$value'";
         if(!$conn->query($sql)){
             echo "errore cancellamento elemento tabella";
-        } 
+        }
+        else echo "HO CANCELLATO IL VALORE ".$value; 
     break;
 }
 

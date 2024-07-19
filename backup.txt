@@ -28,12 +28,11 @@ editbuttons.forEach(button => {
 });
 
 removebuttons.forEach(button => {
-    //console.log(button)
+    console.log(button)
     button.addEventListener("click",removetask)
 
 });
 names.forEach(name => {
-    
     name.addEventListener("keyup", function(event) {
         // If the user presses the "Enter" key on the keyboard
         if (event.key === "Enter") {
@@ -43,14 +42,10 @@ names.forEach(name => {
           addTask()
         }
         else if(event.key === "ArrowUp"){
-            let attribute = name.getAttribute('number')
-            let command = "up"
-            move(command,attribute)
+            console.log("up")
         }
         else if(event.key === "ArrowDown"){
             console.log("down")
-            let command = "down"
-            move(command,attribute)
         }
         else{
             let numberofinput = name.getAttribute('number')
@@ -81,7 +76,7 @@ function deletetask()
 
     let size = buttons.length
     console.log(buttons.length)
-    for(let i = 0; i < buttons.length; i++){
+    for(let i = 0; i < size; i++){
         buttons[i].value = i+1
         editbuttons[i].value = i+1
         names[i].setAttribute('number',i+1)
@@ -206,12 +201,14 @@ function removeAllTask()
 
 function addTask()
 {
+    let maxvalue
     let buttons = document.querySelectorAll('.markbutton')
     let names = document.querySelectorAll('.name')
     if(buttons.length!==0)
     {
-   
-        let maxvalue = names.length
+        console.log("sborra")    
+        let buttonssize = buttons.length-1
+        maxvalue = buttons[buttonssize].value
         console.log("Il max è ",maxvalue)
         addRow(maxvalue)
         addDB(maxvalue)
@@ -255,13 +252,10 @@ function addRow(value)
           addTask()
         }
         else if(event.key === "ArrowUp"){
-            let command = "up"
-            move(command,value)
+            console.log("up")
         }
         else if(event.key === "ArrowDown"){
             console.log("down")
-            let command = "down"
-            move(command,value)
         }
         else{
          
@@ -304,16 +298,7 @@ function addRow(value)
 
     let size = buttons.length
 
-    //try
 
-    let names = document.querySelectorAll('.name')
-    for(let i = 0; i < names.length; i++){
-        console.log("GRANDE QUANTO ",names.length)
-            buttons[i].value = i+1
-            editbuttons[i].value = i+1
-            names[i].setAttribute('number',i+1)
-        
-    }
 
 
 }
@@ -343,25 +328,21 @@ function changeaudio()
 
 function removetask()
 {
+    let names = document.querySelectorAll(".name")
     let buttons = document.querySelectorAll(".markbutton")
     let editbuttons = document.querySelectorAll('.editbutton')
     let rows = document.querySelectorAll('.rowdata')
     console.log(rows.length + " grandezza righe")
     let value = this.value-1
-    /*
-        if(value == rows.length) rows[value-1].remove();
-        //!FIX ERROR HERE 
-        else rows[value].remove()
-    */
-   rows[value-1].remove()
-
-    let names = document.querySelectorAll(".name")
-
-    for(let i = 0; i < buttons.length; i++){
-        buttons[i].value = i+1
-        editbuttons[i].value = i+1
-        names[i].setAttribute('number',i+1)
-        console.log(names[i])
+    console.log(value + "valore scelto")
+    console.log(rows[value-1])
+    if(value == rows.length) rows[value-1].remove();
+    else rows[value].remove()
+   
+    for(let i = 1; i < buttons.length; i++){
+        buttons[i].value = i
+        editbuttons[i].value = i
+        names[i].setAttribute('number',i)
     }
 
     deletefromDB(value)
@@ -430,17 +411,7 @@ function deletefromDB(value)
 }
 
 
-function move(command,value)
+function move()
 {
-    let names = document.querySelectorAll('.name')
-    let realvalue = value-1
-    let nameslength = names.length
-    //you can move upwards only if you arent at the first object
-    if(command == "up" && value !=1){
-        let selected = names[realvalue]
-        console.log("il vero valore è ", realvalue)
-        console.log("vali ", realvalue)
-        console.log(selected)
-        selected.focus()
-    }
+    
 }
