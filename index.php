@@ -49,7 +49,7 @@
             while($row = $result->fetch_assoc()) 
             {
                     echo '<div class="rowdata">';
-                    $value = $row['id'];
+                    $value = $row['number'];
                     $name = $row['name'];
                     echo "<input type = 'text' class = 'name' value = '$name' number = '$value'>"   . '</input>';
                     echo '<div class = "buttonsgroup">';

@@ -56,8 +56,8 @@ names.forEach(name => {
             let numberofinput = name.getAttribute('number')
             let content = name.value
             updateDB(numberofinput,content)
-            console.log(numberofinput)
-            console.log(content)
+           
+
         }
       });
 });
@@ -69,7 +69,7 @@ window.onload = function checkphone()
         //console.log("mobile")
         alert("fuori dai coglioni")
     }
-    else console.log(navigator.userAgent)
+    //else console.log(navigator.userAgent)
 }
 
 
@@ -80,21 +80,17 @@ function deletetask()
     let names = document.querySelectorAll('.name')
     let removebuttons = document.querySelectorAll('.removebutton')
 
-    let size = buttons.length
-    console.log(buttons.length)
+    
     for(let i = 0; i < buttons.length; i++){
         buttons[i].value = i+1
         editbuttons[i].value = i+1
         removebuttons[i].value = i+1
         names[i].setAttribute('number',i+1)
-        console.log(buttons.length)
 
     }
     let value = this.value-1
-    console.log(value)
-    console.log(names.length)
+   
     if(value==names.length) value-=1
-    console.log(names[value])
    
 
         names[value].classList.toggle("done")
@@ -120,7 +116,7 @@ function edittask()
     let buttons = document.querySelectorAll(".markbutton")
     let rows = document.querySelectorAll('.rowdata')
 
-    console.log("tony tony tooonyyyyyy")
+    //console.log("tony tony tooonyyyyyy")
 
     if(this.value)
     {
@@ -152,9 +148,7 @@ function edittask()
                 rows.forEach(row => {
                     num++
                     if(row.classList.contains("icanedit")){
-                        console.log("sbadum")
-                        console.log(num)
-                        console.log(names[num])
+                       
                         names[num].focus()
                         
                     }
@@ -171,7 +165,6 @@ function edittask()
 function hidecursor(value)
 {
     let rows = document.querySelectorAll('.rowdata')
-    console.log(value)
     mousePointer.remove()
     rows[value].classList.remove("icanedit")
 
@@ -214,7 +207,6 @@ function addTask()
     {
    
         let maxvalue = names.length
-        console.log("Il max è ",maxvalue)
         addRow(maxvalue)
         addDB(maxvalue)
     }
@@ -234,17 +226,14 @@ function addTask()
 function addRow(value)
 {
     let buttons = document.querySelectorAll('.markbutton')
-    if(buttons.length==0)
-    {
+    if(buttons.length==0){
 
         value = 1
     }   
     else value = parseInt(value) + 1
-    console.log("m piac sto value " + value)
 
     let div = document.createElement('div')
     div.classList.add("rowdata")
-    console.log(containerrow)
     let input = document.createElement('input')
     input.setAttribute("type", "text")
     input.setAttribute('number',value)
@@ -262,7 +251,6 @@ function addRow(value)
             move(command,value)
         }
         else if(event.key === "ArrowDown"){
-            console.log("down")
             let command = "down"
             move(command,value)
         }
@@ -271,8 +259,7 @@ function addRow(value)
                 let numberofinput = input.getAttribute('number')
                 let content = input.value
                 updateDB(numberofinput,content)
-                console.log(numberofinput)
-                console.log(content)
+              
           
         }
       });
@@ -316,12 +303,11 @@ function addRow(value)
 
     for(let i = 0; i < names.length; i++)
     {
-        console.log("GRANDE QUANTO ",names.length)
         nicebuttons[i].value = i+1
         niceeditbuttons[i].value = i+1
         removebuttons[i].value = i+1
         names[i].setAttribute('number',i+1)
-
+        
     }
 
 
@@ -330,7 +316,7 @@ function addRow(value)
 
 function changeaudio()
 {
-    if(touches%2==0) console.log(touches)
+    if(touches%2==0) 
     touches+=1
 
     if(touches % 2 == 0)
@@ -338,7 +324,6 @@ function changeaudio()
         audioon.classList.remove("hidden")
         audiooff.classList.add("hidden")
         sounds = true
-        console.log("cummy")
     }
     else{
         audiooff.classList.remove("hidden")
@@ -352,37 +337,32 @@ function changeaudio()
 
 function removetask()
 {
-    let buttons = document.querySelectorAll(".markbutton")
-    let editbuttons = document.querySelectorAll('.editbutton')
-    let removebuttons = document.querySelectorAll('.removebutton')
+    let names = document.querySelectorAll(".name")
+
     let rows = document.querySelectorAll('.rowdata')
-    console.log(rows.length + " grandezza righe")
     let value = this.value-1
     /*
         if(value == rows.length) rows[value-1].remove();
         //!FIX ERROR HERE 
         else rows[value].remove()
     */
-   console.log(value)
-   console.log(rows[value])
 
+    if(value == rows.length) rows[value-1].remove();
+    else rows[value].remove()
 
-    let names = document.querySelectorAll(".name")
-    console.log(value, "HO RIMOSSO")
-    console.log(names[value])
-
-    for(let i = 0; i < names.length; i++)
-    {
-        let number = i
-        buttons[i].value = i+1
-        editbuttons[i].value = i+1
-        removebuttons[i].value = i+1
-        names[i].setAttribute('number',i+1)
-        orderDB(number,names[i].value)
-        console.log(names[i])
-    }
-    rows[value].remove()
-
+    let buttons = document.querySelectorAll(".markbutton")
+    let editbuttons = document.querySelectorAll('.editbutton')
+    let removebuttons = document.querySelectorAll('.removebutton')
+    for(let i = 0; i < buttons.length; i++)
+        {
+            let numba = i+1
+            buttons[i].value = numba
+            editbuttons[i].value = numba
+            removebuttons[i].value = numba
+            names[i].setAttribute('number',numba)
+            
+        }
+    reorderlist()
     deletefromDB(value)
 }
 
@@ -391,11 +371,9 @@ function removetask()
 function addDB(value)
 {
     value+=1
-    console.log("quanto vali stronzo ")
-    console.log("ROSAAAAA",value)
+   
     let names = document.querySelectorAll(".name")
     let element = names[value]
-    console.log(element, "adddb")
 
     let str = "addelement"
     const xmlhttp = new XMLHttpRequest();
@@ -416,7 +394,7 @@ function createDB(value)
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
     {
-        console.log(this.responseText)
+        //onsole.log(this.responseText)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -429,7 +407,7 @@ function updateDB(value,content)
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
     {
-        console.log(this.responseText)
+        //console.log(this.responseText)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -444,27 +422,14 @@ function deletefromDB(value)
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
     {
-        console.log(this.responseText)
+        //console.log(this.responseText)
+        rearrangeDB(value)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("request="+str+"&value="+value);  
 }
 
-
-function orderDB(value,content)
-{
-    value+=1
-    let str = "ordertable"
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onload = function() 
-    {
-        console.log(this.responseText)
-    }
-    xmlhttp.open("POST", "elaborator.php");
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("request="+str+"&value="+value+"&content="+content);  
-}
 
 function move(command,value)
 {
@@ -474,10 +439,45 @@ function move(command,value)
     //you can move upwards only if you arent at the first object
     if(command == "up" && value !=1){
         let selected = names[realvalue]
-        console.log("il vero valore è ", realvalue)
-        console.log("vali ", realvalue)
-        console.log(selected)
+    
         selected.focus()
     }
 }
 
+function reorderlist()
+{
+    let names = document.querySelectorAll('.name')
+    let nicebuttons =  document.querySelectorAll('.markbutton')
+    let niceeditbuttons = document.querySelectorAll('.editbutton')
+    let removebuttons = document.querySelectorAll('.removebutton')
+    for(let i = 0; i < names.length; i++)
+    {
+
+        nicebuttons[i].value = i+1
+        niceeditbuttons[i].value = i+1
+        removebuttons[i].value = i+1
+        names[i].setAttribute('number',i+1)
+    }
+}
+
+function rearrangeDB(value)
+{
+    console.log("ho attivato rearrangeDB")
+    let valuey = value-1
+    console.log("il mio valore interno vale ",valuey)
+    let str = "rearrangeDB"
+    let names = document.querySelectorAll('.name')
+
+    for(let i = valuey+1; i > 0 ; i--)
+        {
+
+            const xmlhttp = new XMLHttpRequest();
+            xmlhttp.onload = function() 
+            {
+                console.log(this.responseText)
+            }
+            xmlhttp.open("POST", "rearranger.php");
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("value="+i);  
+        }
+}

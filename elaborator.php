@@ -2,7 +2,8 @@
 
 include "connectdb.php";
 $findmax = "SELECT MAX(number) AS NUMBERONE FROM $table";
-echo $findmax;
+$maxnumbas = 1000000;
+
 if(!$result = $conn->query($findmax)){
     echo "errorerone";
 }
@@ -13,7 +14,7 @@ else{
     }
 }
 
-echo "IL VALORONE VALEEEE " .$maxvalue;
+echo "IL VALORONE VALEEEE " .$maxvalue ."\n";
 $request = $_POST['request'];
 
 switch($request)
@@ -26,11 +27,22 @@ switch($request)
         }
     break;
     case "addelement":
-        $sql = "INSERT INTO $table (name) VALUES ('aaaa')";
-        if(!$conn->query($sql)){
-            echo "error";
+        for($i=1; $i<=$maxnumbas; $i++)
+        {
+            $checksql = "SELECT * FROM $table WHERE number = '$i'";
+            if($result = $conn->query($checksql))
+            {
+                if($result->num_rows == 0)
+                {
+                    $insertnumba = $i;
+                    break;
+                }
+            }
         }
-       
+        $insert = "INSERT INTO $table (name, number) VALUES ('','$insertnumba')";
+        if(!$conn->query($insert)){
+            echo "errore di inserimento";
+        }
        
     break;
 
@@ -49,52 +61,25 @@ switch($request)
     case "edittable":
         $value = $_POST['value'];
         $name = $_POST['content'];
-        $oldname = substr($name,1);
-        //echo "A PUTTAN E " .$value;
         //usa update e set where value = value
         $sql = "UPDATE $table SET name = '$name' 
-        WHERE name = '$oldname'";
+        WHERE number = '$value'";
         if(!$conn->query($sql)){
             echo "errore update tabella";
         } 
         else echo $value . $name;
 
         break;
-
     case "deletefromtable":
         $value = $_POST['value'];
+        echo "CANCELLAMENTO " .$value;
+        //usa update e set where value = value
         $sql = "DELETE FROM $table WHERE number = '$value'";
         if(!$conn->query($sql)){
-            echo "errore delete";
+            echo "errore cancellamento elemento tabella";
         }
- 
+        else echo "HO CANCELLATO IL VALORE ".$value; 
+    break;
 }
-/*/*case "ordertable":
-        // Find missing sequence numbers
-        $missingNumbersQuery = "
-            SELECT n.number + 1 AS missingNumber
-            FROM $table n
-            LEFT JOIN $table n1 ON n.number + 1 = n1.number
-            WHERE n1.number IS NULL
-            AND n.number < (SELECT MAX(number) FROM $table)
-            ORDER BY missingNumber
-        ";
-        
-        if (!$missingResult = $conn->query($missingNumbersQuery)) {
-            echo "Error finding missing numbers";
-        } else {
-            while ($missingRow = $missingResult->fetch_assoc()) {
-                $missingNumber = $missingRow['missingNumber'];
-                $insertSql = "INSERT INTO $table (name, number) VALUES ('', $missingNumber)";
-                if (!$conn->query($insertSql)) {
-                    echo "Error inserting missing number: " . $missingNumber;
-                } else {
-                    echo "Inserted missing number: " . $missingNumber;
-                }
-            }
-        }
-        break;
-        */
-        
-?>
 
+?>
