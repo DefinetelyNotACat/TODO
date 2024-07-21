@@ -80,6 +80,24 @@ switch($request)
         }
         else echo "HO CANCELLATO IL VALORE ".$value; 
     break;
+
+    case "markdone":
+        $value = $_POST['value'];
+        $sql = "UPDATE $table SET done = true WHERE number = '$value'";
+        if(!$conn->query($sql)){
+            echo "errore markdone";
+        }
+        else echo "HO DONNATO IL VALORE ".$value;
+    break;
+    case "removedone":
+        $value = $_POST['value'];
+        $sql = "UPDATE $table SET done = false WHERE number = '$value'";
+        if(!$conn->query($sql)){
+            echo "errore markdone";
+        }
+        else echo "HO TOLTO IL VALORE ".$value;
+    break;
+
 }
 
 ?>

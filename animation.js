@@ -43,17 +43,24 @@ names.forEach(name => {
           addTask()
         }
         else if(event.key === "ArrowUp"){
-            let attribute = name.getAttribute('number')
+            let attribute = name.getAttribute("number")
             let command = "up"
             move(command,attribute)
         }
         else if(event.key === "ArrowDown"){
+            let attribute = name.getAttribute("number")
             console.log("down")
             let command = "down"
             move(command,attribute)
         }
+        else if(event.key === "Shift"){
+            let attribute = name.getAttribute("number")
+            let command = "Shift"
+            console.log(command)
+            deletetask(attribute)
+        }
         else{
-            let numberofinput = name.getAttribute('number')
+            let numberofinput = name.getAttribute("number")
             let content = name.value
             updateDB(numberofinput,content)
            
@@ -67,19 +74,23 @@ window.onload = function checkphone()
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         //console.log(navigator)
         //console.log("mobile")
-        alert("fuori dai coglioni")
+        alert("cellphone version not avaiable yet")
     }
     //else console.log(navigator.userAgent)
 }
 
 
-function deletetask()
+function deletetask(nicevalue)
 {
     let buttons = document.querySelectorAll('.markbutton')
     let editbuttons = document.querySelectorAll('.editbutton')
     let names = document.querySelectorAll('.name')
     let removebuttons = document.querySelectorAll('.removebutton')
-
+    let value 
+    if(nicevalue){
+        value = nicevalue-1
+    }
+    else value = this.value-1
     
     for(let i = 0; i < buttons.length; i++){
         buttons[i].value = i+1
@@ -88,17 +99,21 @@ function deletetask()
         names[i].setAttribute('number',i+1)
 
     }
-    let value = this.value-1
    
     if(value==names.length) value-=1
-   
+    if(names[value].classList.contains("done"))
+    {
+        names[value].classList.remove("done")
+        buttons[value].classList.remove("buttondone")
+        removedone(value)
+    }
 
-        names[value].classList.toggle("done")
-        buttons[value].classList.toggle("buttondone")
-    
-       
-    
-
+    else
+    { 
+        names[value].classList.add("done")
+        buttons[value].classList.add("buttondone")
+        setdone(value)
+    }
 
     if(buttons[value].classList.contains("buttondone")){
         if(sounds)
@@ -107,7 +122,6 @@ function deletetask()
             audio.play()
         }
     }
-   
 }
 
 function edittask()
@@ -254,9 +268,16 @@ function addRow(value)
             let command = "down"
             move(command,value)
         }
+        else if(event.key === "Shift"){
+            let attribute = input.getAttribute("number")
+            let command = "Shift"
+
+
+            deletetask(attribute)
+        }
         else{
          
-                let numberofinput = input.getAttribute('number')
+                let numberofinput = input.getAttribute("number")
                 let content = input.value
                 updateDB(numberofinput,content)
               
@@ -379,7 +400,7 @@ function addDB(value)
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
     {
-        console.log(this.responseText)
+        //console.log(this.responseText)
         //updateDB(element,value)
     }
     xmlhttp.open("POST", "elaborator.php");
@@ -438,8 +459,11 @@ function move(command,value)
     let nameslength = names.length
     //you can move upwards only if you arent at the first object
     if(command == "up" && value !=1){
-        let selected = names[realvalue]
-    
+        let selected = names[realvalue-1]
+        selected.focus()
+    }
+    else if(command == "down" && value != nameslength){
+        let selected = names[realvalue+1]
         selected.focus()
     }
 }
@@ -462,9 +486,9 @@ function reorderlist()
 
 function rearrangeDB(value)
 {
-    console.log("ho attivato rearrangeDB")
+    //console.log("ho attivato rearrangeDB")
     let valuey = value-1
-    console.log("il mio valore interno vale ",valuey)
+    //console.log("il mio valore interno vale ",valuey)
     let str = "rearrangeDB"
     let names = document.querySelectorAll('.name')
 
@@ -474,10 +498,39 @@ function rearrangeDB(value)
             const xmlhttp = new XMLHttpRequest();
             xmlhttp.onload = function() 
             {
-                console.log(this.responseText)
+                //console.log(this.responseText)
             }
             xmlhttp.open("POST", "rearranger.php");
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xmlhttp.send("value="+i);  
         }
+}
+
+
+function setdone(value)
+{
+    value+=1
+    let str = "markdone"
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() 
+    {
+        //console.log(this.responseText)
+    }
+    xmlhttp.open("POST", "elaborator.php");
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("request="+str+"&value="+value); 
+}
+
+function removedone(value)
+{
+    value+=1
+    let str = "removedone"
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() 
+    {
+        //console.log(this.responseText)
+    }
+    xmlhttp.open("POST", "elaborator.php");
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("request="+str+"&value="+value); 
 }

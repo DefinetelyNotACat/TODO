@@ -51,9 +51,22 @@
                     echo '<div class="rowdata">';
                     $value = $row['number'];
                     $name = $row['name'];
-                    echo "<input type = 'text' class = 'name' value = '$name' number = '$value'>"   . '</input>';
+                    $done = $row['done'];
+                    if($done != 1) {
+                        echo "<input type = 'text' class = 'name' value = '$name' number = '$value'>"   . '</input>';
+                    }
+                    else {
+                        echo "<input type = 'text' class = 'name done' value = '$name' number = '$value'>"   . '</input>';
+
+                    }
                     echo '<div class = "buttonsgroup">';
+                    if($done != 1) {
                         echo "<button class = 'markbutton' onclick = 'deletetask()' value = '$value'>"; echo"</button>";
+                    }
+                    else{
+                        echo "<button class = 'markbutton buttondone' onclick = 'deletetask()' value = '$value'>"; echo"</button>";
+
+                    }
                         echo "<button class = 'editbutton editsvg' onclick = 'edittask()' value = '$value'>"; echo "</button>";
                         echo "<button class = 'removebutton' onclick = 'removetask()' value = '$value'>"; echo "</button>";
                     echo '</div>';
