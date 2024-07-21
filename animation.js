@@ -34,7 +34,8 @@ removebuttons.forEach(button => {
 });
 names.forEach(name => {
     
-    name.addEventListener("keyup", function(event) {
+    name.addEventListener("keyup", function(event) 
+    {
         // If the user presses the "Enter" key on the keyboard
         if (event.key === "Enter") {
           // Cancel the default action, if needed
@@ -55,9 +56,10 @@ names.forEach(name => {
         }
         else if(event.key === "Shift"){
             let attribute = name.getAttribute("number")
+            let myname = name
             let command = "Shift"
-            console.log(command)
-            deletetask(attribute)
+            console.log(command, myname)
+            deletetask(myname)
         }
         else{
             let numberofinput = name.getAttribute("number")
@@ -80,20 +82,14 @@ window.onload = function checkphone()
 }
 
 
-function deletetask(nicevalue)
+function deletetask(name)
 {
-    let buttons = document.querySelectorAll('.markbutton')
-    let editbuttons = document.querySelectorAll('.editbutton')
-    let names = document.querySelectorAll('.name')
-    let removebuttons = document.querySelectorAll('.removebutton')
-    let value 
-    if(nicevalue){
-        value = nicevalue-1
-    }
-    else value = this.value-1
-    let element
+   
     
-    if(this.parentNode.parentNode)  element = this.parentNode.parentNode
+    
+    element = name.parentNode
+    console.log("ciao ",element)
+
     let elementsons = element.childNodes
     let input = elementsons[0]
     let groupbuttons = elementsons[1]
@@ -284,7 +280,7 @@ function addRow(value)
             move(command,value)
         }
         else if(event.key === "Shift"){
-            let attribute = input.getAttribute("number")
+            let attribute = input
             let command = "Shift"
 
 
