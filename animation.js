@@ -91,9 +91,9 @@ function deletetask(nicevalue)
         value = nicevalue-1
     }
     else value = this.value-1
+    let element
     
-    
-    let element = this.parentNode.parentNode
+    if(this.parentNode.parentNode)  element = this.parentNode.parentNode
     let elementsons = element.childNodes
     let input = elementsons[0]
     let groupbuttons = elementsons[1]
@@ -103,18 +103,20 @@ function deletetask(nicevalue)
     let mybutton = groupbuttons.childNodes
     //console.log(mybutton)
     let markbutton = mybutton[0]
+    let markvalue = markbutton.value
+    console.log(markvalue)
     if(input.classList.contains("done"))
     {
         input.classList.remove("done")
         markbutton.classList.remove("buttondone")
-        removedone(value)
+        removedone(markvalue)
     }
 
     else
     { 
         input.classList.add("done")
         markbutton.classList.add("buttondone")
-        setdone(value)
+        setdone(markvalue)
     }
 
     if(markbutton.classList.contains("buttondone")){
@@ -476,21 +478,21 @@ function move(command,value)
 
 function setdone(value)
 {
-    value+=1
+    let myvalue = parseInt(value)
     let str = "markdone"
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
     {
-        //console.log(this.responseText)
+        console.log(this.responseText)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("request="+str+"&value="+value); 
+    xmlhttp.send("request="+str+"&value="+myvalue); 
 }
 
 function removedone(value)
 {
-    value+=1
+    let myvalue = parseInt(value)
     let str = "removedone"
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
@@ -499,5 +501,5 @@ function removedone(value)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("request="+str+"&value="+value); 
+    xmlhttp.send("request="+str+"&value="+myvalue); 
 }

@@ -72,15 +72,16 @@ switch($request)
 
     case "markdone":
         $value = $_POST['value'];
-        $sql = "UPDATE $table SET done = true WHERE number = '$value'";
+        echo "ho trovato $value";
+        $sql = "UPDATE $table SET done = 1 WHERE number = '$value'";
         if(!$conn->query($sql)){
             echo "errore markdone";
         }
-        else echo "HO DONNATO IL VALORE ".$value;
+        else echo "HO DONNATO IL VALORE " .$value;
     break;
     case "removedone":
         $value = $_POST['value'];
-        $sql = "UPDATE $table SET done = false WHERE number = '$value'";
+        $sql = "UPDATE $table SET done = 0 WHERE number = '$value'";
         if(!$conn->query($sql)){
             echo "errore markdone";
         }
