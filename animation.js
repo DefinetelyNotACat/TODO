@@ -92,30 +92,32 @@ function deletetask(nicevalue)
     }
     else value = this.value-1
     
-    for(let i = 0; i < buttons.length; i++){
-        buttons[i].value = i+1
-        editbuttons[i].value = i+1
-        removebuttons[i].value = i+1
-        names[i].setAttribute('number',i+1)
-
-    }
-   
-    if(value==names.length) value-=1
-    if(names[value].classList.contains("done"))
+    
+    let element = this.parentNode.parentNode
+    let elementsons = element.childNodes
+    let input = elementsons[0]
+    let groupbuttons = elementsons[1]
+    let inputnumber = input.getAttribute("number")
+    //console.log(elementsons)
+   // console.log(input)
+    let mybutton = groupbuttons.childNodes
+    //console.log(mybutton)
+    let markbutton = mybutton[0]
+    if(input.classList.contains("done"))
     {
-        names[value].classList.remove("done")
-        buttons[value].classList.remove("buttondone")
+        input.classList.remove("done")
+        markbutton.classList.remove("buttondone")
         removedone(value)
     }
 
     else
     { 
-        names[value].classList.add("done")
-        buttons[value].classList.add("buttondone")
+        input.classList.add("done")
+        markbutton.classList.add("buttondone")
         setdone(value)
     }
 
-    if(buttons[value].classList.contains("buttondone")){
+    if(markbutton.classList.contains("buttondone")){
         if(sounds)
         {
             let audio = new Audio('sounds/deleted.wav')
@@ -132,55 +134,56 @@ function edittask()
 
     //console.log("tony tony tooonyyyyyy")
 
-    if(this.value)
-    {
-        let value = this.value-1
+        console.log(this)
+        let firstelement = this.parentNode
+        let element = firstelement.parentNode
+        let elementsons = element.childNodes
+        console.log(elementsons)
+        console.log(element)
+        let input = elementsons[0]
+        let mybuttons = elementsons[1]
+        console.log(mybuttons)
+        let editbutton = mybuttons[1]
+        console.log(input)
+        let value = this.value
            
-
+       
+      
             if(colorrow == false)
             {
                 colorrow = true
-                names[value].contentEditable = "true"
-                names[value].disabled = false
-                names[value].focus();
-                names[value].selectionStart = names[value].value.length;
-                names[value].selectionEnd = names[value].value.length;           
+                input.contentEditable = "true"
+                input.disabled = false
+                input.focus();
+                input.selectionStart = input.value.length;
+                input.selectionEnd = value.length;   
 
-                rows[value].classList.add("icanedit")
+                element.classList.add("icanedit")
                 mousePointer = document.createElement('span')
                 mousePointer.classList.toggle("cursor")
-                names[value].appendChild(mousePointer)
-                names[value].addEventListener("keydown",function()
+                input.appendChild(mousePointer)
+                input.addEventListener("keydown",function()
                 {
                     colorrow = false
-                    hidecursor(value)
+                    hidecursor(element)
                 })
             }
-            else
-            {
-                let num = -1
-                rows.forEach(row => {
-                    num++
-                    if(row.classList.contains("icanedit")){
-                       
-                        names[num].focus()
-                        
-                    }
-                });
+            else{
+                input.focus()
             }
+          
  
    
        
        
       
-    }
+    
 }
 
-function hidecursor(value)
+function hidecursor(element)
 {
-    let rows = document.querySelectorAll('.rowdata')
     mousePointer.remove()
-    rows[value].classList.remove("icanedit")
+    element.classList.remove("icanedit")
 
 }
 
@@ -220,9 +223,18 @@ function addTask()
     if(buttons.length!==0)
     {
    
-        let maxvalue = names.length
-        addRow(maxvalue)
-        addDB(maxvalue)
+
+        let maxnumber = 0
+        let maxrow = names.length
+        for(let i = 0; i < maxrow; i++){
+            let maxvalue = names[i].getAttribute("number")
+            if(maxvalue > maxnumber)
+                maxnumber = maxvalue
+        }
+        maxnumber = parseInt(maxnumber)
+        
+        addRow(maxnumber)
+        addDB(maxnumber)
     }
     else
     {
@@ -245,6 +257,7 @@ function addRow(value)
         value = 1
     }   
     else value = parseInt(value) + 1
+    console.log("Il max value vale ",value)
 
     let div = document.createElement('div')
     div.classList.add("rowdata")
@@ -322,14 +335,7 @@ function addRow(value)
     let niceeditbuttons = document.querySelectorAll('.editbutton')
     let removebuttons = document.querySelectorAll('.removebutton')
 
-    for(let i = 0; i < names.length; i++)
-    {
-        nicebuttons[i].value = i+1
-        niceeditbuttons[i].value = i+1
-        removebuttons[i].value = i+1
-        names[i].setAttribute('number',i+1)
-        
-    }
+    
 
 
 }
@@ -358,6 +364,9 @@ function changeaudio()
 
 function removetask()
 {
+    let buttons = document.querySelectorAll(".markbutton")
+    let editbuttons = document.querySelectorAll('.editbutton')
+    let removebuttons = document.querySelectorAll('.removebutton')
     let names = document.querySelectorAll(".name")
 
     let rows = document.querySelectorAll('.rowdata')
@@ -368,22 +377,15 @@ function removetask()
         else rows[value].remove()
     */
 
-    if(value == rows.length) rows[value-1].remove();
-    else rows[value].remove()
-
-    let buttons = document.querySelectorAll(".markbutton")
-    let editbuttons = document.querySelectorAll('.editbutton')
-    let removebuttons = document.querySelectorAll('.removebutton')
-    for(let i = 0; i < buttons.length; i++)
-        {
-            let numba = i+1
-            buttons[i].value = numba
-            editbuttons[i].value = numba
-            removebuttons[i].value = numba
-            names[i].setAttribute('number',numba)
-            
-        }
-    reorderlist()
+   
+        //rows[value].remove()
+        //console.log(this.parentNode.parentNode)
+        //i take the rowdata
+        let element = this.parentNode.parentNode
+        element.remove()
+        console.log(this)
+    
+    
     deletefromDB(value)
 }
 
@@ -444,7 +446,6 @@ function deletefromDB(value)
     xmlhttp.onload = function() 
     {
         //console.log(this.responseText)
-        rearrangeDB(value)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -468,43 +469,9 @@ function move(command,value)
     }
 }
 
-function reorderlist()
-{
-    let names = document.querySelectorAll('.name')
-    let nicebuttons =  document.querySelectorAll('.markbutton')
-    let niceeditbuttons = document.querySelectorAll('.editbutton')
-    let removebuttons = document.querySelectorAll('.removebutton')
-    for(let i = 0; i < names.length; i++)
-    {
 
-        nicebuttons[i].value = i+1
-        niceeditbuttons[i].value = i+1
-        removebuttons[i].value = i+1
-        names[i].setAttribute('number',i+1)
-    }
-}
 
-function rearrangeDB(value)
-{
-    //console.log("ho attivato rearrangeDB")
-    let valuey = value-1
-    //console.log("il mio valore interno vale ",valuey)
-    let str = "rearrangeDB"
-    let names = document.querySelectorAll('.name')
 
-    for(let i = valuey+1; i > 0 ; i--)
-        {
-
-            const xmlhttp = new XMLHttpRequest();
-            xmlhttp.onload = function() 
-            {
-                //console.log(this.responseText)
-            }
-            xmlhttp.open("POST", "rearranger.php");
-            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlhttp.send("value="+i);  
-        }
-}
 
 
 function setdone(value)

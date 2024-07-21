@@ -27,19 +27,8 @@ switch($request)
         }
     break;
     case "addelement":
-        for($i=1; $i<=$maxnumbas; $i++)
-        {
-            $checksql = "SELECT * FROM $table WHERE number = '$i'";
-            if($result = $conn->query($checksql))
-            {
-                if($result->num_rows == 0)
-                {
-                    $insertnumba = $i;
-                    break;
-                }
-            }
-        }
-        $insert = "INSERT INTO $table (name, number) VALUES ('','$insertnumba')";
+        $value = $_POST['value'];
+        $insert = "INSERT INTO $table (name, number) VALUES ('','$value')";
         if(!$conn->query($insert)){
             echo "errore di inserimento";
         }
