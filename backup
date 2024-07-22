@@ -34,7 +34,8 @@ removebuttons.forEach(button => {
 });
 names.forEach(name => {
     
-    name.addEventListener("keyup", function(event) {
+    name.addEventListener("keyup", function(event) 
+    {
         // If the user presses the "Enter" key on the keyboard
         if (event.key === "Enter") {
           // Cancel the default action, if needed
@@ -55,9 +56,10 @@ names.forEach(name => {
         }
         else if(event.key === "Shift"){
             let attribute = name.getAttribute("number")
+            let myname = name
             let command = "Shift"
-            console.log(command)
-            deletetask(attribute)
+            console.log(command, myname)
+            deletetask(myname)
         }
         else{
             let numberofinput = name.getAttribute("number")
@@ -80,41 +82,46 @@ window.onload = function checkphone()
 }
 
 
-function deletetask(nicevalue)
+function deletetask(name)
 {
-    let buttons = document.querySelectorAll('.markbutton')
-    let editbuttons = document.querySelectorAll('.editbutton')
-    let names = document.querySelectorAll('.name')
-    let removebuttons = document.querySelectorAll('.removebutton')
-    let value 
-    if(nicevalue){
-        value = nicevalue-1
+   
+    let element
+    let input
+    let markbutton
+    let markvalue
+    console.log(name)
+    let tagname = name.tagName
+    console.log(tagname)
+    console.log(tagname)
+    if(tagname == "INPUT")
+    {
+        element = name.parentNode
+        console.log(element)
+        let firstgroup = element.childNodes
+        input = firstgroup[0]
+        let secondgroup = firstgroup[1]
+        let secondbuttons = secondgroup.childNodes
+        markbutton = secondbuttons[0] 
+        markvalue = markbutton.getAttribute("value")
+        console.log(markvalue)
     }
-    else value = this.value-1
-    
-    
-    let element = this.parentNode.parentNode
-    let elementsons = element.childNodes
-    let input = elementsons[0]
-    let groupbuttons = elementsons[1]
-    let inputnumber = input.getAttribute("number")
-    //console.log(elementsons)
-   // console.log(input)
-    let mybutton = groupbuttons.childNodes
-    //console.log(mybutton)
-    let markbutton = mybutton[0]
+    else
+    {
+        console.log(this)
+        element = this.parentNode.parentNode    
+    }
     if(input.classList.contains("done"))
     {
         input.classList.remove("done")
         markbutton.classList.remove("buttondone")
-        removedone(value)
+        removedone(markvalue)
     }
 
     else
     { 
         input.classList.add("done")
         markbutton.classList.add("buttondone")
-        setdone(value)
+        setdone(markvalue)
     }
 
     if(markbutton.classList.contains("buttondone")){
@@ -282,10 +289,8 @@ function addRow(value)
             move(command,value)
         }
         else if(event.key === "Shift"){
-            let attribute = input.getAttribute("number")
+            let attribute = input
             let command = "Shift"
-
-
             deletetask(attribute)
         }
         else{
@@ -476,21 +481,21 @@ function move(command,value)
 
 function setdone(value)
 {
-    value+=1
+    let myvalue = parseInt(value)
     let str = "markdone"
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
     {
-        //console.log(this.responseText)
+        console.log(this.responseText)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("request="+str+"&value="+value); 
+    xmlhttp.send("request="+str+"&value="+myvalue); 
 }
 
 function removedone(value)
 {
-    value+=1
+    let myvalue = parseInt(value)
     let str = "removedone"
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
@@ -499,5 +504,5 @@ function removedone(value)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("request="+str+"&value="+value); 
+    xmlhttp.send("request="+str+"&value="+myvalue); 
 }

@@ -86,22 +86,29 @@ function deletetask(name)
 {
    
     let element
+    let input
+    let markbutton
+    let markvalue
     console.log(name)
-    element = this.parentNode
-    if(element == undefined)  element = name.parentNode 
-    console.log(element)   
-    console.log("ciao ",element)
-
-    let elementsons = element.childNodes
-    let input = elementsons[0]
-    let groupbuttons = elementsons[1]
-    let inputnumber = input.getAttribute("number")
-    //console.log(elementsons)
-   // console.log(input)
-    let mybutton = groupbuttons.childNodes
-    //console.log(mybutton)
-    let markbutton = mybutton[0]
-    let markvalue = markbutton.value
+    let tagname = name.tagName
+    console.log(tagname)
+    console.log(tagname)
+    if(tagname == "INPUT")
+    {
+        element = name.parentNode
+     
+    }
+    else
+    {
+        element = this.parentNode.parentNode    
+    }
+    console.log(element)
+    let firstgroup = element.childNodes
+    input = firstgroup[0]
+    let secondgroup = firstgroup[1]
+    let secondbuttons = secondgroup.childNodes
+    markbutton = secondbuttons[0] 
+    markvalue = markbutton.getAttribute("value")
     console.log(markvalue)
     if(input.classList.contains("done"))
     {
