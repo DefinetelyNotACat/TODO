@@ -85,9 +85,11 @@ window.onload = function checkphone()
 function deletetask(name)
 {
    
-    
-    
-    element = name.parentNode
+    let element
+    console.log(name)
+    element = this.parentNode
+    if(element == undefined)  element = name.parentNode 
+    console.log(element)   
     console.log("ciao ",element)
 
     let elementsons = element.childNodes
@@ -282,8 +284,6 @@ function addRow(value)
         else if(event.key === "Shift"){
             let attribute = input
             let command = "Shift"
-
-
             deletetask(attribute)
         }
         else{
