@@ -24,20 +24,6 @@
     <?php 
 
         include "connectdb.php";
-       /* ==================== INSERT VALUES =================
-       
-       $names = ["armandoo","lurnandoo","federicaa","ziopero","ziomelo",
-        "asa","uusu","kkkk","ssndsnsd","isisd","usussusu","snusnu"];
-        
-        for($i = 1; $i < 10; $i++)
-        {
-            $name = $names[$i];
-            $sql = "INSERT INTO $table (name, password) VALUES ('$name','$name')";
-            if($conn->query($sql)){
-                //echo "ho inserito ".$i;
-            }
-        }
-    ---------------------------------------------------------------*/
         $getstuff = "SELECT * FROM $table";
         $result = $conn->query($getstuff);
         echo '<div class="container">';

@@ -460,6 +460,8 @@ function deletefromDB(value)
 
 function move(command,value)
 {
+    let row = this
+    console.log(row)
     let names = document.querySelectorAll('.name')
     let realvalue = value-1
     let nameslength = names.length
