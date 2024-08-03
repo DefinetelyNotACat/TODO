@@ -50,7 +50,6 @@ names.forEach(name => {
         }
         else if(event.key === "ArrowDown"){
             let attribute = name.getAttribute("number")
-            console.log("down")
             let command = "down"
             move(command,attribute)
         }
@@ -281,25 +280,26 @@ function addRow(value)
           addTask()
         }
         else if(event.key === "ArrowUp"){
+            let attribute = input.getAttribute("number")
             let command = "up"
-            move(command,value)
+            move(command,attribute)
         }
         else if(event.key === "ArrowDown"){
+            let attribute = input.getAttribute("number")
             let command = "down"
-            move(command,value)
+            move(command,attribute)
         }
         else if(event.key === "Shift"){
-            let attribute = input
+            let attribute = input.getAttribute("number")
+            let myname = input
             let command = "Shift"
-            deletetask(attribute)
+            console.log(command, myname)
+            deletetask(myname)
         }
         else{
-         
                 let numberofinput = input.getAttribute("number")
                 let content = input.value
                 updateDB(numberofinput,content)
-              
-          
         }
       });
     div.appendChild(input)
@@ -422,7 +422,7 @@ function createDB(value)
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
     {
-        //onsole.log(this.responseText)
+        //console.log(this.responseText)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -488,7 +488,7 @@ function setdone(value)
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() 
     {
-        console.log(this.responseText)
+        //console.log(this.responseText)
     }
     xmlhttp.open("POST", "elaborator.php");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -508,3 +508,5 @@ function removedone(value)
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("request="+str+"&value="+myvalue); 
 }
+
+

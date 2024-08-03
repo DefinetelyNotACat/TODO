@@ -22,7 +22,7 @@
    
    
     <?php 
-
+    
         include "connectdb.php";
         $getstuff = "SELECT * FROM $table";
         $result = $conn->query($getstuff);
