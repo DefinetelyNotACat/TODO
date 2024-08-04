@@ -226,7 +226,40 @@ function addRow(value)
     let input = document.createElement('input')
     input.setAttribute("type", "text")
     input.classList.add("name")
+<<<<<<< Updated upstream
     
+=======
+    input.addEventListener("keyup", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          addTask()
+        }
+        else if(event.key === "ArrowUp"){
+            let attribute = input.getAttribute("number")
+            let command = "up"
+            move(command,attribute)
+        }
+        else if(event.key === "ArrowDown"){
+            let attribute = input.getAttribute("number")
+            let command = "down"
+            move(command,attribute)
+        }
+        else if(event.key === "Shift"){
+            let myname = input
+            let command = "Shift"
+            console.log(command, myname)
+            deletetask(myname)
+        }
+        else{
+                let numberofinput = input.getAttribute("number")
+                let content = input.value
+                updateDB(numberofinput,content)
+        }
+      });
+>>>>>>> Stashed changes
     div.appendChild(input)
     containerrow.appendChild(div)
     let seconddiv = document.createElement('div')
